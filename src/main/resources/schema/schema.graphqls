@@ -1,0 +1,41 @@
+type Query {
+    featuredPlaylists: [Playlist!]!
+    playlist (playlistId: ID!): Playlist
+}
+
+type Mutation {
+    "Add one or more items to the playlist"
+    addItemsToPlaylist (input: AddItemsToPlaylistInput!): AddItemsToPlaylistResponse!
+}
+
+"A representation of one single playlist"
+type Playlist {
+    "Playlist id"
+    id: ID!,
+    "Playlist name"
+    name: String!
+    "Playlist description"
+    description: String,
+    "Tracks associated with this playlist"
+    tracks: [Track!]!
+}
+
+type Track {
+    id: ID!,
+    name: String!,
+    duration: Int!,
+    explicit: Boolean!,
+    uri: String!
+}
+
+type AddItemsToPlaylistResponse {
+    code: Int!,
+    success: Boolean!,
+    message: String!,
+    playlist: Playlist
+}
+
+input AddItemsToPlaylistInput {
+    playlistId: ID!,
+    uris: [String!]!
+}
